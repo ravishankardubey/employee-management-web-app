@@ -1,0 +1,5 @@
+@include mat-core();
+$employee-dark-theme-primary: mat-palette($mat-pink, 700, 500, 900);
+$employee-dark-theme-accent: mat-palette($mat-blue-grey, A200, A100, A400);
+$employee-dark-theme-warn: mat-palette($mat-deep-orange);
+$employee-dark-theme: mat-dark-theme($employee-dark-theme-primary, $employee-dark-theme-accent, $employee-dark-theme-warn);

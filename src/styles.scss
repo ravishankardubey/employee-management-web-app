@@ -1,0 +1,71 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+@import './theme/variables.scss';
+@import './theme/fonts.scss';
+
+@import '~@angular/material/theming';
+@include mat-core();
+@import './theme/light.theme.scss';
+@import './theme/dark.theme.scss';
+
+@import './app/app.component.scss';
+@import './app/landing-page/landing-page.component.scss';
+
+@mixin component-themes($theme) {
+  @include app-component($theme);
+  @include landing-page($theme);
+}
+
+.employee-light-theme {
+  @include angular-material-theme($employee-light-theme);
+  @include component-themes($employee-light-theme);
+}
+
+.employee-dark-theme {
+  @include angular-material-theme($employee-dark-theme);
+  @include component-themes($employee-dark-theme);
+}
+
+.container {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+body {
+  margin: 0px;
+}
+
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.center-text {
+  text-align: center;
+}
+
+/*
+  Width
+*/
+
+.width-100 {
+  width: 100%;
+}
+
+.width-50 {
+  width: 50%;
+}
+
+.height-150 {
+  height: 150px !important;
+}
+
+.flex-spacer {
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+}

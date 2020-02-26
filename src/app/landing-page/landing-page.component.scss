@@ -1,0 +1,19 @@
+@mixin landing-page($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  .svg-container {
+    @include mat-elevation(2);
+    padding: 20px;
+    background-color: mat-color($background, card);
+  }
+
+  .welcome-msg {
+    color: mat-color($foreground, text);
+    font-size: 30px;
+    ;
+  }
+}

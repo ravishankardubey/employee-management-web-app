@@ -1,0 +1,5 @@
+@include mat-core();
+$employee-light-theme-primary: mat-palette($mat-light-blue);
+$employee-light-theme-accent: mat-palette($mat-orange, A200, A100, A400);
+$employee-light-theme-warn: mat-palette($mat-red);
+$employee-light-theme: mat-light-theme($employee-light-theme-primary, $employee-light-theme-accent, $employee-light-theme-warn);
