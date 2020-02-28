@@ -1,3 +1,8 @@
+import { URL } from '../config/constants';
+
 export const environment = {
-  production: true
+  production: true,
+
+  API_BASE_URL: '',
+  API_URL: URL
 };

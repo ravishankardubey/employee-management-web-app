@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { LIGHT_THEME, DARK_THEME, DEFAULT_THEME } from '../config/constants';
+import { LoaderService } from './core/services/loader/loader.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,13 +10,16 @@ import { LIGHT_THEME, DARK_THEME, DEFAULT_THEME } from '../config/constants';
 export class AppComponent implements OnInit {
   title = 'employee-management';
   themeClass = '';
+  isLoaderActive = false;
 
   constructor(
-    private overlayContainer: OverlayContainer
+    private overlayContainer: OverlayContainer,
+    private loaderService: LoaderService
   ) { }
 
   ngOnInit() {
     this.onThemeChange(DEFAULT_THEME);
+    this.loaderService.loaderStatus.subscribe(isLoaderActive => this.isLoaderActive = isLoaderActive);
   }
 
   onThemeChange(event) {

@@ -12,9 +12,23 @@
 @import './app/app.component.scss';
 @import './app/landing-page/landing-page.component.scss';
 
+@mixin golbal-style($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
+}
+
 @mixin component-themes($theme) {
   @include app-component($theme);
   @include landing-page($theme);
+  @include golbal-style($theme);
 }
 
 .employee-light-theme {
@@ -26,6 +40,9 @@
   @include angular-material-theme($employee-dark-theme);
   @include component-themes($employee-dark-theme);
 }
+
+
+
 
 .container {
   width: 90%;
@@ -68,4 +85,8 @@ body {
 .flex-spacer {
   -webkit-box-flex: 1;
   flex-grow: 1;
+}
+
+.margin-15px {
+  margin-left: 15px !important;
 }

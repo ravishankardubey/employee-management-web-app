@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ROUTES } from './../../config/constants';
 
 @Component({
   selector: 'app-landing-page',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./landing-page.component.scss']
 })
 export class LandingPageComponent implements OnInit {
+  ROUTES = ROUTES;
 
   constructor() { }
 

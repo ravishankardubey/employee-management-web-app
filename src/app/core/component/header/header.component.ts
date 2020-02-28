@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { THEMES, DEFAULT_THEME } from '../../../../config/constants';
+import { ROUTES } from './../../../../config/constants';
 
 @Component({
   selector: 'app-header',
@@ -8,6 +9,7 @@ import { THEMES, DEFAULT_THEME } from '../../../../config/constants';
 })
 export class HeaderComponent implements OnInit {
   @Output() changeTheme: EventEmitter<any> = new EventEmitter();
+  ROUTES = ROUTES;
   selectedTheme: string = DEFAULT_THEME;
   THEMES = THEMES;
   constructor() { }
