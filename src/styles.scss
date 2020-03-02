@@ -11,6 +11,8 @@
 
 @import './app/app.component.scss';
 @import './app/landing-page/landing-page.component.scss';
+@import './app/employee/components/dashboard/dashboard.component.scss';
+@import './app/core/snackbar/snackbar/snackbar.component.scss';
 
 @mixin golbal-style($theme) {
   $primary: map-get($theme, primary);
@@ -29,6 +31,8 @@
   @include app-component($theme);
   @include landing-page($theme);
   @include golbal-style($theme);
+  @include employee-dashboard-component($theme);
+  @include snackbar-component($theme);
 }
 
 .employee-light-theme {
@@ -78,6 +82,14 @@ body {
   width: 50%;
 }
 
+.width-80 {
+  width: 80%;
+}
+
+.width-20 {
+  width: 20%;
+}
+
 .height-150 {
   height: 150px !important;
 }
@@ -89,4 +101,19 @@ body {
 
 .margin-15px {
   margin-left: 15px !important;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.sticky-toolbar {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 1000;
 }

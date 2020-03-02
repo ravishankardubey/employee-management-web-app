@@ -6,11 +6,15 @@ import { FooterComponent } from './component/footer/footer.component';
 import { HeaderComponent } from './component/header/header.component';
 import { ApiService } from './services/api/api.service';
 import { RouterModule } from '@angular/router';
+import { ConfirmationComponent } from './modal/confirmation/confirmation.component';
+import { SnackbarComponent } from './snackbar/snackbar/snackbar.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ConfirmationComponent,
+    SnackbarComponent
   ],
   imports: [
     CommonModule,
@@ -24,6 +28,7 @@ import { RouterModule } from '@angular/router';
   ],
   providers: [
     ApiService
-  ]
+  ],
+  entryComponents: [ConfirmationComponent, SnackbarComponent]
 })
 export class CoreModule { }

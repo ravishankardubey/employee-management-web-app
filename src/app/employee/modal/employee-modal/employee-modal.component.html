@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>{{headerText}} </h1>
+<div mat-dialog-content [formGroup]="employeeForm">
+  <mat-form-field class="margin-15px" appearance="outline">
+    <mat-label>First Name</mat-label>
+    <input matInput type="text" formControlName="first_name">
+  </mat-form-field>
+
+  <mat-form-field class="margin-15px" appearance="outline">
+    <mat-label>Last Name</mat-label>
+    <input matInput type="text" formControlName="last_name">
+  </mat-form-field>
+
+  <mat-form-field class="margin-15px" appearance="outline">
+    <mat-label>Age</mat-label>
+    <input matInput type="number" formControlName="age">
+  </mat-form-field>
+
+  <mat-form-field class="margin-15px" appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" formControlName="email">
+  </mat-form-field>
+
+  <mat-form-field class="margin-15px width-80" appearance="outline">
+    <mat-label>Department</mat-label>
+    <select matNativeControl formControlName="departmentId">
+      <option *ngFor="let dept of allDepartments" [value]="dept['id']">{{dept['name']}}</option>
+    </select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="warn" (click)="onClose()">Close</button>
+  <button mat-raised-button cdkFocusInitial color="primary" *ngIf="ACTIONS['add'] === data.action" (click)="addEmployee()"
+    [disabled]="employeeForm.invalid">Add Employee</button>
+  <button mat-raised-button cdkFocusInitial color="primary" *ngIf="ACTIONS['edit'] === data.action" (click)="updateEmployee()"
+    [disabled]="employeeForm.invalid">Update Employee</button>
+</div>

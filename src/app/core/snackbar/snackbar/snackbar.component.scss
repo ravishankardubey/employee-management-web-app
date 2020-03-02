@@ -1,0 +1,23 @@
+@mixin snackbar-component($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  .basic-container {
+    padding: 30px;
+  }
+
+  .mat-snack-bar-container.snackbar {
+    color: mat-color($foreground, text);
+  }
+
+  .mat-snack-bar-container .flex {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    background-color: mat-color($background, status-bar);
+  }
+
+}

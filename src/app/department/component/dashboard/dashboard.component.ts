@@ -1,22 +1,18 @@
-import { Component, OnInit, ViewChild, } from '@angular/core';
-import { EmployeeService } from './../../services/employee.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
-import { EmployeeModalComponent } from '../../modal/employee-modal/employee-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ACTIONS } from '../../../../config/constants';
-import { ConfirmationComponent } from './../../../core/modal/confirmation/confirmation.component';
 import { CommonService } from './../../../core/services/common/common.service';
+import { ConfirmationComponent } from './../../../core/modal/confirmation/confirmation.component';
+import { DepartmentService } from './../../service/department.service';
+import { DepartmentModalComponent } from '../../modal/department-modal/department-modal.component';
 
-export interface EmployeeData {
+export interface DepartmentData {
   id: number;
-  first_name: string;
-  last_name: string;
-  age: number;
-  email: string;
-  department: string;
+  name: string;
 }
 
 @Component({
@@ -25,33 +21,28 @@ export interface EmployeeData {
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
   ACTIONS = ACTIONS;
-  displayedColumns: string[] = ['select', 'id', 'first_name', 'last_name', 'age', 'email', 'department', 'action'];
-  dataSource: MatTableDataSource<EmployeeData>;
-  selection = new SelectionModel<EmployeeData>(true, []);
+  displayedColumns: string[] = ['select', 'id', 'name', 'action'];
+  dataSource: MatTableDataSource<DepartmentData>;
+  selection = new SelectionModel<DepartmentData>(true, []);
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-
   constructor(
-    private employeeService: EmployeeService,
+    private departmentService: DepartmentService,
     private dialog: MatDialog,
     private commonService: CommonService
   ) { }
 
   ngOnInit() {
-    this.fetchAllEmployees();
     this.dataSource = new MatTableDataSource([]);
+    this.fetchAllDepartments();
   }
 
-  fetchAllEmployees() {
-    this.employeeService.getAllEmployees().subscribe(employees => {
-      this.initTable(employees.data);
-    });
-  }
-
-  fetchEmployee(employeeId) {
-    this.employeeService.getEmployee(employeeId).subscribe(employee => {
+  fetchAllDepartments() {
+    this.departmentService.getAllDepartment().subscribe(depts => {
+      this.initTable(depts.data);
     });
   }
 
@@ -59,6 +50,11 @@ export class DashboardComponent implements OnInit {
     this.dataSource = new MatTableDataSource(data);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  fetchDepartment(deptId) {
+    this.departmentService.getDepartment(deptId).subscribe(dept => {
+    });
   }
 
   applyFilter(event: Event) {
@@ -76,77 +72,74 @@ export class DashboardComponent implements OnInit {
     return numSelected === numRows;
   }
 
-
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
-  checkboxLabel(row?: EmployeeData): string {
+  checkboxLabel(row?: DepartmentData): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
-  addEmployee(action) {
-    this.openEmpDialog(action, {});
+  addDepartment(action) {
+    this.openDeptDialog(action, {});
   }
 
-  editEmployee(action, empData) {
-    this.openEmpDialog(action, empData);
+  editDepartment(action, deptData) {
+    this.openDeptDialog(action, deptData);
   }
 
-  viewEmployee(action, empData) {
-    this.openEmpDialog(action, empData);
+  viewDepartment(action, deptData) {
+    this.openDeptDialog(action, deptData);
   }
-
-
-  openEmpDialog(action, empData): void {
-    const dialogRef = this.dialog.open(EmployeeModalComponent, {
-      width: '500px', data: { empData: empData, action: action }
+  openDeptDialog(action, deptData): void {
+    const dialogRef = this.dialog.open(DepartmentModalComponent, {
+      width: '500px', data: { deptData: deptData, action: action }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.fetchAllEmployees();
-        this.commonService.openSnackBar('Employee Created/Updated Successfully');
+        this.fetchAllDepartments();
+        this.commonService.openSnackBar('Department Created/Updated Successfully');
       }
     });
   }
 
-  deleteEmployee(id) {
+
+  deleteDepartment(id) {
     const dialogRef = this.dialog.open(ConfirmationComponent, {
       width: '500px',
-      data: { msg: 'Do you want to delete this employee ?' }
+      data: { msg: 'Do you want to delete this Department ?' }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.deleteEmployeeCall({ employeeIds: [id] });
+        this.deleteDepartmentCall({ departmentIds: [id] });
       }
     });
   }
 
-  deleteMultipleEmployee() {
+  deleteMultipleDepartment() {
     const dialogRef = this.dialog.open(ConfirmationComponent, {
       width: '500px',
-      data: { msg: 'Do you want to delete selected employee(s) ?' }
+      data: { msg: 'Do you want to delete selected Department(s) ?' }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const deleteEmp = this.selection.selected.map(item => item.id);
-        this.deleteEmployeeCall({ employeeIds: deleteEmp });
+        const deleteDept = this.selection.selected.map(item => item.id);
+        this.deleteDepartmentCall({ departmentIds: deleteDept });
       }
     });
   }
 
-  deleteEmployeeCall(empIds) {
-    this.employeeService.deleteEmployee(empIds).subscribe(res => {
-      this.fetchAllEmployees();
-      this.commonService.openSnackBar('Employee(s) deleted Successfully');
+  deleteDepartmentCall(deptIds) {
+    this.departmentService.deleteDepartment(deptIds).subscribe(res => {
+      this.fetchAllDepartments();
+      this.commonService.openSnackBar('Department(s) deleted Successfully');
     });
   }
-
 
 }

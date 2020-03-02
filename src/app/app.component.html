@@ -1,5 +1,5 @@
 <div [class]="themeClass">
-  <mat-progress-bar *ngIf="isLoaderActive" color="warn" mode="indeterminate"></mat-progress-bar>
+  <mat-progress-bar *ngIf="isLoaderActive" color="warn" mode="indeterminate" class="sticky-toolbar"></mat-progress-bar>
   <div class="loader-overlay" *ngIf="isLoaderActive"></div>
   <div class="application-wrapper">
     <app-header (changeTheme)="onThemeChange($event)"></app-header>

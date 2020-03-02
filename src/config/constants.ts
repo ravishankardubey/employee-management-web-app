@@ -1,6 +1,6 @@
 export const LIGHT_THEME = 'Light Theme';
 export const DARK_THEME = 'Dark Theme';
-export const DEFAULT_THEME = LIGHT_THEME;
+export const DEFAULT_THEME = DARK_THEME;
 export const THEMES = [LIGHT_THEME, DARK_THEME];
 
 
@@ -23,7 +23,7 @@ export const URL = {
 
     GET_DEPARTMENT: '/getDepartment',
     GET_ALL_DEPARTMENTS: '/getAllDepartments',
-    ADD_DEPARTMENT: '/addDepartmen',
+    ADD_DEPARTMENT: '/addDepartment',
     UPDATE_DEPARTMENT: '/updateDepartment',
     DELETE_DEPARTMENT: '/deleteDepartments'
 };
@@ -34,3 +34,13 @@ export const ROUTES = {
     department: 'department',
     dashboard: 'dashboard',
 };
+
+export const ACTIONS = {
+    add: 'add',
+    edit: 'edit',
+    view: 'view',
+    delete: 'delete',
+    deleteSelected: 'deleteSelected'
+};
+
+export const SNACKBAR_TIME = 3;

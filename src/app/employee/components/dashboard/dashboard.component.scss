@@ -1,0 +1,44 @@
+@mixin employee-dashboard-component($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  table {
+    width: 100%;
+  }
+
+  td,
+  th {
+    width: 12.5%;
+  }
+
+  .action-bar {
+    background-color: mat-color($background, card);
+  }
+
+  .delete-section {
+    height: 63px;
+    background-color: mat-color($background, card);
+  }
+
+  .table-control-header {
+    padding: 5px 1%;
+    width: 48%;
+    color: mat-color($foreground, text);
+  }
+
+  .font-14 {
+    font-size: 14px;
+  }
+
+  .font-22 {
+    font-size: 22px;
+  }
+
+  .flex-wrap {
+    background-color: mat-color($background, card);
+  }
+
+}

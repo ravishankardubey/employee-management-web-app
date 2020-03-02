@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>{{headerText}} </h1>
+<div mat-dialog-content [formGroup]="departmentForm">
+  <mat-form-field class="margin-15px" appearance="outline">
+    <mat-label>Name</mat-label>
+    <input matInput type="text" formControlName="name">
+  </mat-form-field>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="warn" (click)="onClose()">Close</button>
+  <button mat-raised-button cdkFocusInitial color="primary" *ngIf="ACTIONS['add'] === data.action" (click)="addDepartment()"
+    [disabled]="departmentForm.invalid">Add Department</button>
+  <button mat-raised-button cdkFocusInitial color="primary" *ngIf="ACTIONS['edit'] === data.action" (click)="updateDepartment()"
+    [disabled]="departmentForm.invalid">Update Department</button>
+</div>

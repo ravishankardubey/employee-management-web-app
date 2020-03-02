@@ -1,1 +1,92 @@
-<p>dashboard works!</p>
+  <div class="mat-elevation-z8">
+    <div class="flex-wrap">
+      <div class="table-control-header font-22">
+        <mat-label>Employee Details</mat-label>
+
+      </div>
+      <div class="flex-spacer"></div>
+      <mat-form-field class="table-control-header font-14">
+        <mat-label class="align-right">Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex: John">
+      </mat-form-field>
+    </div>
+
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+            [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+      </ng-container>
+
+      <!-- First Name Column -->
+      <ng-container matColumnDef="first_name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> FIRST NAME </th>
+        <td mat-cell *matCellDef="let row"> {{row.first_name}} </td>
+      </ng-container>
+
+      <!-- Last Name Column -->
+      <ng-container matColumnDef="last_name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> LAST NAME </th>
+        <td mat-cell *matCellDef="let row"> {{row.last_name}} </td>
+      </ng-container>
+
+      <!-- age Column -->
+      <ng-container matColumnDef="age">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> AGE </th>
+        <td mat-cell *matCellDef="let row"> {{row.age}} </td>
+      </ng-container>
+
+      <!-- age Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> EMAIL </th>
+        <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+      </ng-container>
+
+      <!-- age Column -->
+      <ng-container matColumnDef="department">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> DEPARTMENT </th>
+        <td mat-cell *matCellDef="let row"> {{row.dept[0].name}} </td>
+      </ng-container>
+
+
+      <!-- Action -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> ACTIONS </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-icon class="cursor" (click)="viewEmployee(ACTIONS['view'], row)" title="View Employee">visibility</mat-icon>
+          <mat-icon class="cursor margin-15px" (click)="editEmployee(ACTIONS['edit'], row)" title="Edit Employee">edit</mat-icon>
+          <mat-icon class="cursor margin-15px" (click)="deleteEmployee(row.id)" title="Delete Employee">delete</mat-icon>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+      </tr>
+    </table>
+
+    <div class="flex-wrap">
+      <div class="width-20">
+        <button mat-raised-button color="primary" class="margin-15px" [disabled]="!selection.hasValue()"
+          (click)="deleteMultipleEmployee()">DELETE</button>
+        <button mat-raised-button color="primary" class="margin-15px" (click)="addEmployee(ACTIONS['add'])">ADD</button>
+      </div>
+      <div class="width-80">
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+    </div>
+  </div>

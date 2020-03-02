@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.onThemeChange(DEFAULT_THEME);
-    this.loaderService.loaderStatus.subscribe(isLoaderActive => this.isLoaderActive = isLoaderActive);
+    this.loaderService.loaderStatus.subscribe(isLoaderActive => setTimeout(() => this.isLoaderActive = isLoaderActive, 0));
   }
 
   onThemeChange(event) {
